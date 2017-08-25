@@ -1,5 +1,7 @@
 package com.github.dtcoutu;
 
+import oracle.jvm.hotspot.jfr.JFR;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -17,7 +19,8 @@ public class MainWindow extends JFrame {
         super("Auction Sniper");
         setName(MAIN_WINDOW_NAME);
         add(sniperStatus);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
