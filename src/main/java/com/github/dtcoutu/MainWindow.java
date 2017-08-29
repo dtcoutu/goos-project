@@ -1,7 +1,5 @@
 package com.github.dtcoutu;
 
-import oracle.jvm.hotspot.jfr.JFR;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

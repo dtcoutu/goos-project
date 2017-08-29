@@ -14,6 +14,7 @@ public class AuctionMessageTranslator implements MessageListener {
         this.listener = listener;
     }
 
+    @Override
     public void processMessage(Chat chat, Message message) {
         Map<String, String> event = unpackEventFrom(message);
 
