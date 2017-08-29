@@ -23,7 +23,7 @@ public class AuctionSniperTest {
         final int price = 1001;
         final int increment = 25;
 
-        sniper.currentPrice(price, increment);
+        sniper.currentPrice(price, increment, AuctionEventListener.PriceSource.FromOtherBidder);
 
         verify(auction).bid(price + increment);
         verify(sniperListener, atLeastOnce()).sniperBidding();

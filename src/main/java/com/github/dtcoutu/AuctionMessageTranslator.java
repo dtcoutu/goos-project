@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuctionMessageTranslator implements MessageListener {
+    private final String sniperId;
     private final AuctionEventListener listener;
 
-    public AuctionMessageTranslator(AuctionEventListener listener) {
+    public AuctionMessageTranslator(String sniperId, AuctionEventListener listener) {
+        this.sniperId = sniperId;
         this.listener = listener;
     }
 
@@ -22,18 +24,8 @@ public class AuctionMessageTranslator implements MessageListener {
         if ("CLOSE".equals(type)) {
             listener.auctionClosed();
         } else if ("PRICE".equals(type)) {
-            listener.currentPrice(event.currentPrice(), event.increment());
+            listener.currentPrice(event.currentPrice(), event.increment(), event.isFrom(sniperId));
         }
-    }
-
-    private Map<String, String> unpackEventFrom(Message message) {
-        Map<String, String> event = new HashMap<>();
-        for (String element : message.getBody().split(";")) {
-            String[] pair = element.split(":");
-            event.put(pair[0].trim(), pair[1].trim());
-        }
-
-        return event;
     }
 
     private static class AuctionEvent {
@@ -57,6 +49,14 @@ public class AuctionMessageTranslator implements MessageListener {
 
         public String type() {
             return get("Event");
+        }
+
+        public AuctionEventListener.PriceSource isFrom(String sniperId) {
+            return sniperId.equals(bidder()) ? AuctionEventListener.PriceSource.FromSniper : AuctionEventListener.PriceSource.FromOtherBidder;
+        }
+
+        private String bidder() {
+            return get("Bidder");
         }
 
         private String get(String fieldName) {
