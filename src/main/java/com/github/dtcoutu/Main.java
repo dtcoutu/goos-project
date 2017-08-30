@@ -79,6 +79,16 @@ public class Main {
             showStatus(MainWindow.STATUS_BIDDING);
         }
 
+        @Override
+        public void sniperWinning() {
+            showStatus(MainWindow.STATUS_WINNING);
+        }
+
+        @Override
+        public void sniperWon() {
+            showStatus(MainWindow.STATUS_WON);
+        }
+
         // They added sniperWinning, but we haven't done anything with that yet so I'm not going to.
 
         private void showStatus(String status) {
