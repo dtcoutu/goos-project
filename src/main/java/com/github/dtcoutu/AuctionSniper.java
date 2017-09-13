@@ -1,11 +1,13 @@
 package com.github.dtcoutu;
 
 public class AuctionSniper implements AuctionEventListener {
+    private final String itemId;
     private final Auction auction;
     private final SniperListener sniperListener;
     private boolean isWinning;
 
-    public AuctionSniper(Auction auction, SniperListener sniperListener) {
+    public AuctionSniper(String itemId, Auction auction, SniperListener sniperListener) {
+        this.itemId = itemId;
         this.auction = auction;
         this.sniperListener = sniperListener;
     }
@@ -25,8 +27,10 @@ public class AuctionSniper implements AuctionEventListener {
         if (isWinning) {
             sniperListener.sniperWinning();
         } else {
-            auction.bid(price + increment);
-            sniperListener.sniperBidding();
+            int bid = price + increment;
+            auction.bid(bid);
+            sniperListener.sniperBidding(
+                    ImmutableSniperState.builder().itemId(itemId).lastPrice(price).lastBid(bid).build());
         }
     }
 }

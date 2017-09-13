@@ -1,8 +1,7 @@
 package com.github.dtcoutu;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
+
 import java.awt.*;
 
 public class MainWindow extends JFrame {
@@ -39,39 +38,11 @@ public class MainWindow extends JFrame {
         return snipersTable;
     }
 
-    private static JLabel createLabel(String initialText) {
-        JLabel result = new JLabel(initialText);
-        result.setName(SNIPER_STATUS_NAME);
-        result.setBorder(new LineBorder(Color.BLACK));
-        return result;
-    }
-
     public void showStatus(String status) {
         snipers.setStatusText(status);
     }
 
-    private class SnipersTableModel extends AbstractTableModel {
-
-        private String statusText = STATUS_JOINING;
-
-        @Override
-        public int getRowCount() {
-            return 1;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 1;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return statusText;
-        }
-
-        public void setStatusText(String newStatusText) {
-            statusText = newStatusText;
-            fireTableRowsUpdated(0,0);
-        }
+    public void sniperStatusChanged(SniperState sniperState, String statusText) {
+        snipers.sniperStatusChanged(sniperState, statusText);
     }
 }

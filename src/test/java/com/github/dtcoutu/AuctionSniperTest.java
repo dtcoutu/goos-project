@@ -8,9 +8,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AuctionSniperTest {
+    private static final String ITEM_ID = "auction-item-id";
     private final Auction auction = mock(Auction.class);
     private final SniperListener sniperListener = mock(SniperListener.class);
-    private final AuctionSniper sniper = new AuctionSniper(auction, sniperListener);
+    private final AuctionSniper sniper = new AuctionSniper(ITEM_ID, auction, sniperListener);
 
     @Test
     public void reportsLostWhenAuctionClosesImmediately() {
@@ -39,11 +40,13 @@ public class AuctionSniperTest {
     public void bidsHighersAndReportsBiddingWhenNewPriceArrives() {
         final int price = 1001;
         final int increment = 25;
+        final int bid = price + increment;
 
         sniper.currentPrice(price, increment, AuctionEventListener.PriceSource.FromOtherBidder);
 
-        verify(auction).bid(price + increment);
-        verify(sniperListener, atLeastOnce()).sniperBidding();
+        verify(auction).bid(bid);
+        verify(sniperListener, atLeastOnce())
+                .sniperBidding(ImmutableSniperState.builder().itemId(ITEM_ID).lastPrice(price).lastBid(bid).build());
     }
 
     @Test
