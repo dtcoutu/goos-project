@@ -75,11 +75,6 @@ public class Main {
         }
 
         @Override
-        public void sniperWinning() {
-            showStatus(MainWindow.STATUS_WINNING);
-        }
-
-        @Override
         public void sniperWon() {
             showStatus(MainWindow.STATUS_WON);
         }
@@ -88,8 +83,6 @@ public class Main {
         public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
             SwingUtilities.invokeLater(() -> ui.sniperStatusChanged(sniperSnapshot));
         }
-
-        // They added sniperWinning, but we haven't done anything with that yet so I'm not going to.
 
         private void showStatus(String status) {
             SwingUtilities.invokeLater(() -> ui.showStatus(status));

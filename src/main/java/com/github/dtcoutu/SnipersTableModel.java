@@ -10,7 +10,8 @@ public class SnipersTableModel extends AbstractTableModel {
 
     private static final String[] STATUS_TEXT = {
             MainWindow.STATUS_JOINING,
-            MainWindow.STATUS_BIDDING
+            MainWindow.STATUS_BIDDING,
+            MainWindow.STATUS_WINNING
     };
 
     @Override

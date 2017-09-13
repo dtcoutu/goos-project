@@ -50,8 +50,9 @@ public class AuctionSniperTest {
 
     @Test
     public void reportsIsWinningWhenCurrentPriceComesFromSniper() {
-        sniper.currentPrice(123, 45, AuctionEventListener.PriceSource.FromSniper);
+        sniper.currentPrice(123, 12, AuctionEventListener.PriceSource.FromOtherBidder);
+        sniper.currentPrice(135, 45, AuctionEventListener.PriceSource.FromSniper);
 
-        verify(sniperListener).sniperWinning();
+        verify(sniperListener).sniperStateChanged(ImmutableSniperSnapshot.builder().itemId(ITEM_ID).lastPrice(135).lastBid(135).state(SniperState.WINNING).build());
     }
 }
