@@ -45,7 +45,7 @@ public class AuctionSniperTest {
 
         verify(auction).bid(bid);
         verify(sniperListener, atLeastOnce())
-                .sniperBidding(ImmutableSniperSnapshot.builder().itemId(ITEM_ID).lastPrice(price).lastBid(bid).build());
+                .sniperStateChanged(ImmutableSniperSnapshot.builder().itemId(ITEM_ID).lastPrice(price).lastBid(bid).state(SniperState.BIDDING).build());
     }
 
     @Test

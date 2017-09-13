@@ -7,5 +7,6 @@ public interface SniperSnapshot {
     String itemId();
     int lastPrice();
     int lastBid();
+    SniperState state();
 }
 

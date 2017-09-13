@@ -75,11 +75,6 @@ public class Main {
         }
 
         @Override
-        public void sniperBidding(ImmutableSniperSnapshot sniperState) {
-            SwingUtilities.invokeLater(() -> ui.sniperStatusChanged(sniperState, MainWindow.STATUS_BIDDING));
-        }
-
-        @Override
         public void sniperWinning() {
             showStatus(MainWindow.STATUS_WINNING);
         }
@@ -87,6 +82,11 @@ public class Main {
         @Override
         public void sniperWon() {
             showStatus(MainWindow.STATUS_WON);
+        }
+
+        @Override
+        public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
+            SwingUtilities.invokeLater(() -> ui.sniperStatusChanged(sniperSnapshot));
         }
 
         // They added sniperWinning, but we haven't done anything with that yet so I'm not going to.

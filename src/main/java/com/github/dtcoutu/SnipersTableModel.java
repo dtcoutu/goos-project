@@ -4,9 +4,14 @@ import javax.swing.table.AbstractTableModel;
 
 public class SnipersTableModel extends AbstractTableModel {
 
-    private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).build();
+    private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).state(SniperState.JOINING).build();
     private SniperSnapshot sniperSnapshot = STARTING_UP;
     private String statusText = MainWindow.STATUS_JOINING;
+
+    private static final String[] STATUS_TEXT = {
+            MainWindow.STATUS_JOINING,
+            MainWindow.STATUS_BIDDING
+    };
 
     @Override
     public int getRowCount() {
@@ -38,9 +43,9 @@ public class SnipersTableModel extends AbstractTableModel {
         fireTableRowsUpdated(0,0);
     }
 
-    public void sniperStatusChanged(SniperSnapshot sniperSnapshot, String statusText) {
+    public void sniperStatusChanged(SniperSnapshot sniperSnapshot) {
         this.sniperSnapshot = sniperSnapshot;
-        this.statusText = statusText;
+        this.statusText = STATUS_TEXT[sniperSnapshot.state().ordinal()];
         fireTableRowsUpdated(0, 0);
     }
 

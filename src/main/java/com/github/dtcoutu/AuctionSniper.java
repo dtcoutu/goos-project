@@ -29,8 +29,8 @@ public class AuctionSniper implements AuctionEventListener {
         } else {
             int bid = price + increment;
             auction.bid(bid);
-            sniperListener.sniperBidding(
-                    ImmutableSniperSnapshot.builder().itemId(itemId).lastPrice(price).lastBid(bid).build());
+            sniperListener.sniperStateChanged(
+                    ImmutableSniperSnapshot.builder().itemId(itemId).lastPrice(price).lastBid(bid).state(SniperState.BIDDING).build());
         }
     }
 }
