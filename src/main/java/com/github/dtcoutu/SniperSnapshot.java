@@ -3,7 +3,7 @@ package com.github.dtcoutu;
 import org.immutables.value.Value;
 
 @Value.Immutable
-public interface SniperState {
+public interface SniperSnapshot {
     String itemId();
     int lastPrice();
     int lastBid();

@@ -28,13 +28,13 @@ public class SnipersTableModelTest {
 
     @Test
     public void setsSniperValuesInColumns() {
-        model.sniperStatusChanged(ImmutableSniperState.builder().itemId("item id").lastPrice(555).lastBid(666).build(),
+        model.sniperStatusChanged(ImmutableSniperSnapshot.builder().itemId("item id").lastPrice(555).lastBid(666).build(),
                                   MainWindow.STATUS_BIDDING);
 
         assertColumnEquals(SnipersTableModel.Column.ITEM_IDENTIFIER, "item id");
         assertColumnEquals(SnipersTableModel.Column.LAST_PRICE, 555);
         assertColumnEquals(SnipersTableModel.Column.LAST_BID, 666);
-        assertColumnEquals(SnipersTableModel.Column.SNIPER_STATUS, MainWindow.STATUS_BIDDING);
+        assertColumnEquals(SnipersTableModel.Column.SNIPER_STATE, MainWindow.STATUS_BIDDING);
 
         verify(listener).tableChanged(refEq(new TableModelEvent(model, 0)));
     }

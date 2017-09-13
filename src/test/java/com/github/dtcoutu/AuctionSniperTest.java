@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class AuctionSniperTest {
     private static final String ITEM_ID = "auction-item-id";
@@ -46,7 +45,7 @@ public class AuctionSniperTest {
 
         verify(auction).bid(bid);
         verify(sniperListener, atLeastOnce())
-                .sniperBidding(ImmutableSniperState.builder().itemId(ITEM_ID).lastPrice(price).lastBid(bid).build());
+                .sniperBidding(ImmutableSniperSnapshot.builder().itemId(ITEM_ID).lastPrice(price).lastBid(bid).build());
     }
 
     @Test

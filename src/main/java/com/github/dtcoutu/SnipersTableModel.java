@@ -4,8 +4,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class SnipersTableModel extends AbstractTableModel {
 
-    private static final SniperState STARTING_UP = ImmutableSniperState.builder().itemId("").lastPrice(0).lastBid(0).build();
-    private SniperState sniperState = STARTING_UP;
+    private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).build();
+    private SniperSnapshot sniperSnapshot = STARTING_UP;
     private String statusText = MainWindow.STATUS_JOINING;
 
     @Override
@@ -22,12 +22,12 @@ public class SnipersTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (Column.at(columnIndex)) {
             case ITEM_IDENTIFIER:
-                return sniperState.itemId();
+                return sniperSnapshot.itemId();
             case LAST_PRICE:
-                return sniperState.lastPrice();
+                return sniperSnapshot.lastPrice();
             case LAST_BID:
-                return sniperState.lastBid();
-            case SNIPER_STATUS:
+                return sniperSnapshot.lastBid();
+            case SNIPER_STATE:
                 return statusText;
         }
         return statusText;
@@ -38,8 +38,8 @@ public class SnipersTableModel extends AbstractTableModel {
         fireTableRowsUpdated(0,0);
     }
 
-    public void sniperStatusChanged(SniperState sniperState, String statusText) {
-        this.sniperState = sniperState;
+    public void sniperStatusChanged(SniperSnapshot sniperSnapshot, String statusText) {
+        this.sniperSnapshot = sniperSnapshot;
         this.statusText = statusText;
         fireTableRowsUpdated(0, 0);
     }
@@ -47,8 +47,7 @@ public class SnipersTableModel extends AbstractTableModel {
     public enum Column {
         ITEM_IDENTIFIER,
         LAST_PRICE,
-        LAST_BID,
-        SNIPER_STATUS;
+        LAST_BID, SNIPER_STATE;
 
         public static Column at(int offset) {
             return values()[offset];
