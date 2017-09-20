@@ -73,9 +73,5 @@ public class Main {
         public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
             SwingUtilities.invokeLater(() -> ui.sniperStatusChanged(sniperSnapshot));
         }
-
-        private void showStatus(String status) {
-            SwingUtilities.invokeLater(() -> ui.showStatus(status));
-        }
     }
 }
