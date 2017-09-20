@@ -1,14 +1,12 @@
 package com.github.dtcoutu;
 
 public class AuctionSniper implements AuctionEventListener {
-    private final String itemId;
     private final Auction auction;
     private final SniperListener sniperListener;
     private SniperSnapshot snapshot;
     private boolean isWinning;
 
     public AuctionSniper(String itemId, Auction auction, SniperListener sniperListener) {
-        this.itemId = itemId;
         this.auction = auction;
         this.sniperListener = sniperListener;
         this.snapshot = SniperSnapshot.joining(itemId);
