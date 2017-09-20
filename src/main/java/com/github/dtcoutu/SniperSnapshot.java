@@ -20,5 +20,9 @@ public abstract class SniperSnapshot {
     public SniperSnapshot bidding(int newLastPrice, int newLastBid) {
         return ImmutableSniperSnapshot.copyOf(this).withLastPrice(newLastPrice).withLastBid(newLastBid).withState(SniperState.BIDDING);
     }
+
+    public SniperSnapshot lost() {
+        return ImmutableSniperSnapshot.copyOf(this).withState(SniperState.LOST);
+    }
 }
 

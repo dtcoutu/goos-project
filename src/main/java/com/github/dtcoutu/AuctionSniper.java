@@ -19,7 +19,7 @@ public class AuctionSniper implements AuctionEventListener {
         if (isWinning) {
             sniperListener.sniperWon();
         } else {
-            sniperListener.sniperLost();
+            sniperListener.sniperStateChanged(snapshot.lost());
         }
     }
 

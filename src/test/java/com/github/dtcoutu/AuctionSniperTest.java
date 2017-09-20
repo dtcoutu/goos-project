@@ -1,9 +1,15 @@
 package com.github.dtcoutu;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class AuctionSniperTest {
@@ -16,7 +22,9 @@ public class AuctionSniperTest {
     public void reportsLostWhenAuctionClosesImmediately() {
         sniper.auctionClosed();
 
-        verify(sniperListener, atLeastOnce()).sniperLost();
+        ArgumentCaptor<SniperSnapshot> snapshotCaptor = ArgumentCaptor.forClass(SniperSnapshot.class);
+        verify(sniperListener).sniperStateChanged(snapshotCaptor.capture());
+        assertThat(snapshotCaptor.getValue().state(), equalTo(SniperState.LOST));
     }
 
     @Test
@@ -24,7 +32,11 @@ public class AuctionSniperTest {
         sniper.currentPrice(123, 45, AuctionEventListener.PriceSource.FromOtherBidder);
         sniper.auctionClosed();
 
-        verify(sniperListener).sniperLost();
+        ArgumentCaptor<SniperSnapshot> snapshotCaptor = ArgumentCaptor.forClass(SniperSnapshot.class);
+        verify(sniperListener, times(2)).sniperStateChanged(snapshotCaptor.capture());
+        List<SniperSnapshot> capturedSnapshots = snapshotCaptor.getAllValues();
+        assertThat(capturedSnapshots.get(0).state(), equalTo(SniperState.BIDDING));
+        assertThat(capturedSnapshots.get(1).state(), equalTo(SniperState.LOST));
     }
 
     @Test

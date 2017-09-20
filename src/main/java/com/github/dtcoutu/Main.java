@@ -70,11 +70,6 @@ public class Main {
 
     private class SniperStateDisplayer implements SniperListener {
         @Override
-        public void sniperLost() {
-            showStatus(MainWindow.STATUS_LOST);
-        }
-
-        @Override
         public void sniperWon() {
             showStatus(MainWindow.STATUS_WON);
         }
