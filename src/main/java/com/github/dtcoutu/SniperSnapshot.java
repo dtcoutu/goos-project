@@ -24,5 +24,9 @@ public abstract class SniperSnapshot {
     public SniperSnapshot lost() {
         return ImmutableSniperSnapshot.copyOf(this).withState(SniperState.LOST);
     }
+
+    public SniperSnapshot won() {
+        return ImmutableSniperSnapshot.copyOf(this).withState(SniperState.WON);
+    }
 }
 

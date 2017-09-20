@@ -12,7 +12,8 @@ public class SnipersTableModel extends AbstractTableModel {
             MainWindow.STATUS_JOINING,
             MainWindow.STATUS_BIDDING,
             MainWindow.STATUS_WINNING,
-            MainWindow.STATUS_LOST
+            MainWindow.STATUS_LOST,
+            MainWindow.STATUS_WON
     };
 
     @Override

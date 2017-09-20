@@ -44,7 +44,11 @@ public class AuctionSniperTest {
         sniper.currentPrice(123, 45, AuctionEventListener.PriceSource.FromSniper);
         sniper.auctionClosed();
 
-        verify(sniperListener).sniperWon();
+        ArgumentCaptor<SniperSnapshot> snapshotCaptor = ArgumentCaptor.forClass(SniperSnapshot.class);
+        verify(sniperListener, times(2)).sniperStateChanged(snapshotCaptor.capture());
+        List<SniperSnapshot> capturedSnapshots = snapshotCaptor.getAllValues();
+        assertThat(capturedSnapshots.get(0).state(), equalTo(SniperState.WINNING));
+        assertThat(capturedSnapshots.get(1).state(), equalTo(SniperState.WON));
     }
 
     @Test
