@@ -19,11 +19,13 @@ public class Main {
     private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN + "@%s/" + AUCTION_RESOURCE;
     public static final String JOIN_COMMAND_FORMAT = "";
     public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d;";
+
+    private SnipersTableModel snipers = new SnipersTableModel();
     private MainWindow ui;
     @SuppressWarnings("unused") private Chat notToBeGCd;
 
     public Main() throws InvocationTargetException, InterruptedException {
-        startUserInterface();
+        SwingUtilities.invokeAndWait(() -> ui = new MainWindow(snipers));
     }
 
     public static void main(String... args) throws Exception {
@@ -33,10 +35,6 @@ public class Main {
                 args[ARG_ITEM_ID]);
     }
 
-    private void startUserInterface() throws InvocationTargetException, InterruptedException {
-        SwingUtilities.invokeAndWait(() -> ui = new MainWindow());
-    }
-
     private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
         disconnectWhenUICloses(connection);
         final Chat chat = connection.getChatManager().createChat( auctionId(itemId, connection), null);
@@ -44,7 +42,7 @@ public class Main {
 
         Auction auction = new XMPPAuction(chat);
 
-        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SniperStateDisplayer())));
+        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SwingThreadSniperListener())));
 
         auction.join();
     }
@@ -68,10 +66,13 @@ public class Main {
         return String.format(AUCTION_ID_FORMAT, itemId, connection.getServiceName());
     }
 
-    private class SniperStateDisplayer implements SniperListener {
+    private class SwingThreadSniperListener implements SniperListener {
+        public SwingThreadSniperListener() {
+        }
+
         @Override
         public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
-            SwingUtilities.invokeLater(() -> ui.sniperStatusChanged(sniperSnapshot));
+            SwingUtilities.invokeLater(() -> ui.sniperStateChanged(sniperSnapshot));
         }
     }
 }

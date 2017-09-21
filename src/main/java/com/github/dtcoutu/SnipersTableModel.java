@@ -2,7 +2,7 @@ package com.github.dtcoutu;
 
 import javax.swing.table.AbstractTableModel;
 
-public class SnipersTableModel extends AbstractTableModel {
+public class SnipersTableModel extends AbstractTableModel implements SniperListener {
 
     private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).state(SniperState.JOINING).build();
     private SniperSnapshot sniperSnapshot = STARTING_UP;
@@ -26,7 +26,8 @@ public class SnipersTableModel extends AbstractTableModel {
         return Column.at(columnIndex).valueIn(sniperSnapshot);
     }
 
-    public void sniperStatusChanged(SniperSnapshot sniperSnapshot) {
+    @Override
+    public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
         this.sniperSnapshot = sniperSnapshot;
         fireTableRowsUpdated(0, 0);
     }
