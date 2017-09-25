@@ -42,7 +42,7 @@ public class Main {
 
         Auction auction = new XMPPAuction(chat);
 
-        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SwingThreadSniperListener())));
+        chat.addMessageListener(new AuctionMessageTranslator(connection.getUser(), new AuctionSniper(itemId, auction, new SwingThreadSniperListener(snipers))));
 
         auction.join();
     }
@@ -67,12 +67,15 @@ public class Main {
     }
 
     private class SwingThreadSniperListener implements SniperListener {
-        public SwingThreadSniperListener() {
+        private final SnipersTableModel snipers;
+
+        public SwingThreadSniperListener(SnipersTableModel snipers) {
+            this.snipers = snipers;
         }
 
         @Override
         public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
-            SwingUtilities.invokeLater(() -> ui.sniperStateChanged(sniperSnapshot));
+            snipers.sniperStateChanged(sniperSnapshot);
         }
     }
 }
