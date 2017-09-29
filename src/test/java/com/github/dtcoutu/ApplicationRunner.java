@@ -6,10 +6,8 @@ public class ApplicationRunner {
     private static final String XMPP_HOSTNAME = "localhost";
     public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
     private AuctionSniperDriver driver;
-    private String itemId;
 
     public void startBiddingIn(final FakeAuctionServer auction) {
-        itemId = auction.getItemId();
 
         Thread thread = new Thread("Test Application") {
             @Override public void run() {
@@ -38,8 +36,8 @@ public class ApplicationRunner {
         }
     }
 
-    public void hasShownSniperIsBidding(int lastPrice, int lastBid) {
-        driver.showsSniperStatus(itemId, lastPrice, lastBid, SnipersTableModel.textFor(SniperState.BIDDING));
+    public void hasShownSniperIsBidding(FakeAuctionServer auction, int lastPrice, int lastBid) {
+        driver.showsSniperStatus(auction.getItemId(), lastPrice, lastBid, SnipersTableModel.textFor(SniperState.BIDDING));
     }
 
     public void hasShownSniperIsWinning(int winningBid) {
