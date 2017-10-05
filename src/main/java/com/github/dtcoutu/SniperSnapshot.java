@@ -24,5 +24,9 @@ public abstract class SniperSnapshot {
     public SniperSnapshot closed() {
         return ImmutableSniperSnapshot.copyOf(this).withState(state().whenAuctionClosed());
     }
+
+    public boolean isForSameItemAs(SniperSnapshot snapshot) {
+        return this.itemId().equals(snapshot.itemId());
+    }
 }
 

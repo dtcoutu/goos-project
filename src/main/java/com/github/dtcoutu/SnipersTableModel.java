@@ -1,11 +1,13 @@
 package com.github.dtcoutu;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SnipersTableModel extends AbstractTableModel implements SniperListener {
 
     private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).state(SniperState.JOINING).build();
-    private SniperSnapshot sniperSnapshot = STARTING_UP;
+    private List<SniperSnapshot> sniperSnapshots = new ArrayList<>();
 
     private static final String[] STATUS_TEXT = {
             "Joining", "Bidding", "Winning", "Lost", "Won"
@@ -13,7 +15,7 @@ public class SnipersTableModel extends AbstractTableModel implements SniperListe
 
     @Override
     public int getRowCount() {
-        return 1;
+        return sniperSnapshots.size();
     }
 
     @Override
@@ -28,12 +30,27 @@ public class SnipersTableModel extends AbstractTableModel implements SniperListe
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return Column.at(columnIndex).valueIn(sniperSnapshot);
+        return Column.at(columnIndex).valueIn(sniperSnapshots.get(rowIndex));
     }
 
     @Override
-    public void sniperStateChanged(SniperSnapshot sniperSnapshot) {
-        this.sniperSnapshot = sniperSnapshot;
+    public void sniperStateChanged(SniperSnapshot snapshot) {
+        int row = rowMatching(snapshot);
+        sniperSnapshots.set(row, snapshot);
+        fireTableRowsUpdated(row, row);
+    }
+
+    private int rowMatching(SniperSnapshot snapshot) {
+        for(int i=0; i<sniperSnapshots.size(); i++) {
+            if (snapshot.isForSameItemAs(sniperSnapshots.get(i))) {
+                return i;
+            }
+        }
+        throw new RuntimeException("Cannot find match for " + snapshot);
+    }
+
+    public void addSniper(SniperSnapshot snapshot) {
+        sniperSnapshots.add(snapshot);
         fireTableRowsUpdated(0, 0);
     }
 
