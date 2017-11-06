@@ -20,7 +20,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 public class FakeAuctionServer {
-    private static final String ITEM_ID_AS_LOGIN = "auction-%s";
+    private static final String ITEM_ID_AS_LOGIN = "auction%s";
     private static final String AUCTION_PASSWORD = "auction";
     private static final String AUCTION_RESOURCE = "Auction";
     private static final String XMPP_HOSTNAME = "localhost";

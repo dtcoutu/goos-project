@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.Test;
 
 public class AutionSniperEndToEndTest {
-    private FakeAuctionServer auction = new FakeAuctionServer("item-54321");
-    private FakeAuctionServer auction2 = new FakeAuctionServer("item-65432");
+    private FakeAuctionServer auction = new FakeAuctionServer("item54321");
+    private FakeAuctionServer auction2 = new FakeAuctionServer("item65432");
     private ApplicationRunner application = new ApplicationRunner();
 
     @Test public void sniperJoinsAuctionUntilAuctionCloses() throws Exception {
