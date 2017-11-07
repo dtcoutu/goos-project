@@ -50,10 +50,6 @@ public class Main {
         });
     }
 
-    private void safelyAddItemToModel(final String itemId) throws Exception {
-        SwingUtilities.invokeAndWait(() -> snipers.addSniper(SniperSnapshot.joining(itemId)));
-    }
-
     private void disconnectWhenUICloses(final XMPPConnection connection) {
         ui.addWindowListener(new WindowAdapter() {
             @Override public void windowClosed(WindowEvent e) {
