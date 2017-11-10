@@ -40,8 +40,6 @@ public class Main {
         ui.addUserRequestListener(itemId -> {
             snipers.addSniper(SniperSnapshot.joining(itemId));
 
-            Announcer<AuctionEventListener> auctionEventListeners = Announcer.to(AuctionEventListener.class);
-
             Auction auction = new XMPPAuction(connection, itemId);
             notToBeGCd.add(auction);
             auction.addAuctionEventListener(new AuctionSniper(itemId, auction, new SwingThreadSniperListener(snipers)));
