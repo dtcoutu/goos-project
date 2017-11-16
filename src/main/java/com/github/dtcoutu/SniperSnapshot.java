@@ -4,10 +4,10 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 public abstract class SniperSnapshot {
-    abstract String itemId();
-    abstract int lastPrice();
-    abstract int lastBid();
-    abstract SniperState state();
+    public abstract String itemId();
+    public abstract int lastPrice();
+    public abstract int lastBid();
+    public abstract SniperState state();
 
     public static SniperSnapshot joining(String itemId) {
         return ImmutableSniperSnapshot.builder().itemId(itemId).lastPrice(0).lastBid(0).state(SniperState.JOINING).build();

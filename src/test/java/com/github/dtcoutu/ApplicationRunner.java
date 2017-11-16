@@ -1,5 +1,8 @@
 package com.github.dtcoutu;
 
+import com.github.dtcoutu.ui.MainWindow;
+import com.github.dtcoutu.ui.SnipersTableModel;
+
 public class ApplicationRunner {
     public static final String SNIPER_ID = "sniper";
     public static final String SNIPER_PASSWORD = "sniper";

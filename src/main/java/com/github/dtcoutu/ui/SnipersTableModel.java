@@ -1,4 +1,9 @@
-package com.github.dtcoutu;
+package com.github.dtcoutu.ui;
+
+import com.github.dtcoutu.ImmutableSniperSnapshot;
+import com.github.dtcoutu.SniperListener;
+import com.github.dtcoutu.SniperSnapshot;
+import com.github.dtcoutu.SniperState;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -6,7 +11,8 @@ import java.util.List;
 
 public class SnipersTableModel extends AbstractTableModel implements SniperListener {
 
-    private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).state(SniperState.JOINING).build();
+    private static final SniperSnapshot STARTING_UP = ImmutableSniperSnapshot.builder().itemId("").lastPrice(0).lastBid(0).state(
+            SniperState.JOINING).build();
     private List<SniperSnapshot> sniperSnapshots = new ArrayList<>();
 
     private static final String[] STATUS_TEXT = {

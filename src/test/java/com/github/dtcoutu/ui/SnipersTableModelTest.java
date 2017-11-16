@@ -1,5 +1,9 @@
-package com.github.dtcoutu;
+package com.github.dtcoutu.ui;
 
+import com.github.dtcoutu.ImmutableSniperSnapshot;
+import com.github.dtcoutu.SniperSnapshot;
+import com.github.dtcoutu.SniperState;
+import com.github.dtcoutu.ui.SnipersTableModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +34,8 @@ public class SnipersTableModelTest {
     @Test
     public void setsSniperValuesInColumns() {
         model.addSniper(SniperSnapshot.joining("item id"));
-        model.sniperStateChanged(ImmutableSniperSnapshot.builder().itemId("item id").lastPrice(555).lastBid(666).state(SniperState.BIDDING).build());
+        model.sniperStateChanged(
+                ImmutableSniperSnapshot.builder().itemId("item id").lastPrice(555).lastBid(666).state(SniperState.BIDDING).build());
 
         assertColumnEquals(SnipersTableModel.Column.ITEM_IDENTIFIER, "item id");
         assertColumnEquals(SnipersTableModel.Column.LAST_PRICE, 555);

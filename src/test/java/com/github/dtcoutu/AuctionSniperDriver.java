@@ -1,5 +1,6 @@
 package com.github.dtcoutu;
 
+import com.github.dtcoutu.ui.MainWindow;
 import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.JButtonDriver;
 import com.objogate.wl.swing.driver.JFrameDriver;

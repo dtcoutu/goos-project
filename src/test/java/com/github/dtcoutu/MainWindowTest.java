@@ -1,5 +1,7 @@
 package com.github.dtcoutu;
 
+import com.github.dtcoutu.ui.MainWindow;
+import com.github.dtcoutu.ui.SnipersTableModel;
 import com.objogate.wl.swing.probe.ValueMatcherProbe;
 import org.junit.Test;
 

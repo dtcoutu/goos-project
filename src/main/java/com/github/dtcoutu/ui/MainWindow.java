@@ -1,5 +1,6 @@
-package com.github.dtcoutu;
+package com.github.dtcoutu.ui;
 
+import com.github.dtcoutu.UserRequestListener;
 import com.github.dtcoutu.util.Announcer;
 
 import javax.swing.*;

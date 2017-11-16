@@ -1,7 +1,7 @@
 package com.github.dtcoutu;
 
-import com.github.dtcoutu.util.Announcer;
-import org.jivesoftware.smack.Chat;
+import com.github.dtcoutu.ui.MainWindow;
+import com.github.dtcoutu.ui.SnipersTableModel;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
